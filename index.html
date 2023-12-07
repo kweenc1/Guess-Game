@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Number Guessing Game</h1>
+  <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+  <label for="userGuess">Your guess:</label>
+  <input type="number" id="userGuess" min="1" max="100">
+  <button id="guessButton">Guess</button>
+  <div id="feedback"></div>
+  <div id="guesses"></div>
+
+  <script>
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let guesses = 0;
+
+    const guessButton = document.getElementById('guessButton');
+    const userGuessInput = document.getElementById('userGuess');
+    const feedbackElement = document.getElementById('feedback');
+    const guessesElement = document.getElementById('guesses');
+
+    function handleGuess() {
+      guesses++;
+      const userGuess = parseInt(userGuessInput.value);
+
+      if (userGuess === secretNumber) {
+        feedbackElement.innerHTML = `Congratulations! You guessed the number in ${guesses} tries!`;
+        guessButton.disabled = true;
+      } else if (userGuess < secretNumber) {
+        feedbackElement.innerHTML = 'Your guess is too low.';
+      } else {
+        feedbackElement.innerHTML = 'Your guess is too high.';
+      }
+
+      guessesElement.textContent = 'Number of guesses: ' + guesses;
+      userGuessInput.value = '';
+    }
+
+    guessButton.addEventListener('click', handleGuess);
+  </script>
+</body>
+</html>
